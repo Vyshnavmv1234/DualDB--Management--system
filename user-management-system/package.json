@@ -3,32 +3,33 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "worker": "tsx watch src/workers/user.worker.ts"
+    "worker": "tsx watch src/workers/user.worker.ts",
+    "postinstall": "prisma skills sync || exit 0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^7.10.0",
+    "@prisma/client": "^6.19.3",
     "bcrypt": "^6.0.0",
     "bullmq": "^6.3.9",
     "dotenv": "^18.0.4",
     "express": "^5.2.1",
     "ioredis": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.10.2",
-    "prisma": "^8.0.0-rc.17"
+    "mongoose": "^9.10.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.6.3",
+    "prisma": "^6.19.3",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3"
   }
