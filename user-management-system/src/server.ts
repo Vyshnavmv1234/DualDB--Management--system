@@ -1,16 +1,17 @@
 import dotenv from "dotenv";
-import app from "./app.js";
-import { connectMongoDB } from "./config/mongo.js";
-import { connectPostgres } from "./config/postgres.js";
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
-
 const startServer = async (): Promise<void> => {
   try {
+    const { default: app } = await import("./app.js");
+    const { connectMongoDB } = await import("./config/mongo.js");
+    const { connectPostgres } = await import("./config/postgres.js");
+
     await connectMongoDB();
     await connectPostgres();
+
+    const PORT = process.env.PORT || 3000;
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

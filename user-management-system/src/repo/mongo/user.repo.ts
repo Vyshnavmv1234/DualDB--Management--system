@@ -1,9 +1,11 @@
-import type { IUserRepository } from "../interfaces/user.repo.interface.js";
 import { UserModel } from "../../models/user.model.js";
 import type { IUser } from "../../models/user.model.js";
+import type { IUserRepository } from "../interfaces/user.repo.interface.js";
+import type { CreateUserDTO } from "../../dto/user/create-user.dto.js";
+import type { UpdateUserDTO } from "../../dto/user/update-user.dto.js";
 
 export class MongoUserRepository implements IUserRepository {
-  async create(data: Partial<IUser>): Promise<IUser> {
+  async create(data: CreateUserDTO): Promise<IUser> {
     return await UserModel.create(data);
   }
 
@@ -16,13 +18,10 @@ export class MongoUserRepository implements IUserRepository {
   }
 
   async findAll(): Promise<IUser[]> {
-    return await UserModel.find();
+    return await UserModel.find().sort({ createdAt: -1 });
   }
 
-  async update(
-    id: string,
-    data: Partial<IUser>
-  ): Promise<IUser | null> {
+  async update(id: string, data: UpdateUserDTO): Promise<IUser | null> {
     return await UserModel.findByIdAndUpdate(id, data, {
       new: true,
       runValidators: true,
